@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <com.github.suzukihr.smoothcolorpicker.CircleHueView
+        android:id="@+id/circleHueView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <com.github.suzukihr.smoothcolorpicker.CircleHueOverlayView
+        android:id="@+id/hueOverlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <FrameLayout
+        android:id="@+id/frameLayout_sv_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:background="@drawable/bg_border"
+            />
+
+        <com.github.suzukihr.smoothcolorpicker.SvView
+            android:id="@+id/svView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            />
+
+        <com.github.suzukihr.smoothcolorpicker.SvOverlayView
+            android:id="@+id/svOverlayView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+
+</merge>

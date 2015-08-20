@@ -1,0 +1,64 @@
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
+            android:background="@drawable/bg_border"
+            />
+
+        <com.github.suzukihr.smoothcolorpicker.SvView
+            android:id="@+id/svView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            />
+
+        <com.github.suzukihr.smoothcolorpicker.SvOverlayView
+            android:id="@+id/svOverlayView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="36dp"
+        android:layout_height="match_parent"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/bg_border"
+            />
+
+        <com.github.suzukihr.smoothcolorpicker.RectHueView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="8dp"
+            />
+
+        <com.github.suzukihr.smoothcolorpicker.RectHueOverlayView
+            android:id="@+id/rectHueOverlayView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+</merge>
