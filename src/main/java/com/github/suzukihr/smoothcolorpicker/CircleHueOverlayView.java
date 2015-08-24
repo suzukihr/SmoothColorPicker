@@ -34,12 +34,23 @@ public class CircleHueOverlayView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mFromUser = true;
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                    mListener.onHueChanged(mHue, mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (mListener != null) {
+                    mListener.onHueChanged(mHue, mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
+                if (mListener != null) {
+                    mListener.onHueChanged(mHue, mFromUser);
+                    mListener.onStopTrackingTouch();
+                }
                 invalidate();
                 mFromUser = false;
                 break;
@@ -65,10 +76,6 @@ public class CircleHueOverlayView extends View {
 
         mPaint.setColor(Color.WHITE);
         canvas.drawCircle((float) x, (float) y, pointerRadius - density, mPaint);
-
-        if (mListener != null) {
-            mListener.onHueChanged(mHue, mFromUser);
-        }
     }
 
     @Override

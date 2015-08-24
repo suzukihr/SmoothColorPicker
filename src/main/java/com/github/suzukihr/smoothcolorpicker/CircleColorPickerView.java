@@ -36,6 +36,20 @@ public class CircleColorPickerView extends FrameLayout {
                     mListener.onColorChanged(getColor(), getHsv(), fromUser);
                 }
             }
+
+            @Override
+            public void onStartTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStopTrackingTouch(getColor(), getHsv());
+                }
+            }
         });
 
         mSvOverlayView.setListener(new SvOverlayView.SvValueListener() {
@@ -43,6 +57,20 @@ public class CircleColorPickerView extends FrameLayout {
             public void onSvChanged(float s, float v, boolean fromUser) {
                 if (mListener != null) {
                     mListener.onColorChanged(getColor(), getHsv(), fromUser);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStopTrackingTouch(getColor(), getHsv());
                 }
             }
         });

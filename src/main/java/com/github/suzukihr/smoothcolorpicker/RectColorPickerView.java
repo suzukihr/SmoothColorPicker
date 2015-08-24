@@ -33,6 +33,20 @@ public class RectColorPickerView extends LinearLayout {
                     mListener.onColorChanged(getColor(), getHsv(), fromUser);
                 }
             }
+
+            @Override
+            public void onStartTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStopTrackingTouch(getColor(), getHsv());
+                }
+            }
         });
 
         mSvOverlayView.setListener(new SvOverlayView.SvValueListener() {
@@ -40,6 +54,20 @@ public class RectColorPickerView extends LinearLayout {
             public void onSvChanged(float s, float v, boolean fromUser) {
                 if (mListener != null) {
                     mListener.onColorChanged(getColor(), getHsv(), fromUser);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch() {
+                if (mListener != null) {
+                    mListener.onStopTrackingTouch(getColor(), getHsv());
                 }
             }
         });

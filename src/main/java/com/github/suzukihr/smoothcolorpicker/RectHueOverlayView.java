@@ -39,12 +39,23 @@ public class RectHueOverlayView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mFromUser = true;
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                    mListener.onHueChanged(getHue(), mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (mListener != null) {
+                    mListener.onHueChanged(getHue(), mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
+                if (mListener != null) {
+                    mListener.onHueChanged(getHue(), mFromUser);
+                    mListener.onStopTrackingTouch();
+                }
                 invalidate();
                 mFromUser = false;
                 break;
@@ -66,10 +77,6 @@ public class RectHueOverlayView extends View {
         mPaint.setColor(Color.WHITE);
         RectF rectF2= new RectF(density * 2, y - density * 2, getWidth() - density * 2, y + density * 2);
         canvas.drawRect(rectF2, mPaint);
-
-        if (mListener != null) {
-            mListener.onHueChanged(getHue(), mFromUser);
-        }
     }
 
     @Override

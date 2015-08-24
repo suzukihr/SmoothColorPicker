@@ -39,12 +39,23 @@ public class AlphaOverlayView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mFromUser = true;
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                    mListener.onAlphaChanged(mAlpha, mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (mListener != null) {
+                    mListener.onAlphaChanged(mAlpha, mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
+                if (mListener != null) {
+                    mListener.onAlphaChanged(mAlpha, mFromUser);
+                    mListener.onStopTrackingTouch(mAlpha);
+                }
                 invalidate();
                 mFromUser = false;
                 break;
@@ -66,10 +77,6 @@ public class AlphaOverlayView extends View {
         mPaint.setColor(Color.WHITE);
         RectF rectF2 = new RectF(x - density * 2, density * 3, x + density * 2, getHeight() - density * 3);
         canvas.drawRect(rectF2, mPaint);
-
-        if (mListener != null) {
-            mListener.onAlphaChanged(mAlpha, mFromUser);
-        }
     }
 
     @Override

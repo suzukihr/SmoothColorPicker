@@ -48,12 +48,23 @@ public class SvOverlayView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mFromUser = true;
+                if (mListener != null) {
+                    mListener.onStartTrackingTouch();
+                    mListener.onSvChanged(mSaturation, mValue, mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (mListener != null) {
+                    mListener.onSvChanged(mSaturation, mValue, mFromUser);
+                }
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
+                if (mListener != null) {
+                    mListener.onSvChanged(mSaturation, mValue, mFromUser);
+                    mListener.onStopTrackingTouch();
+                }
                 invalidate();
                 mFromUser = false;
                 break;
@@ -75,10 +86,6 @@ public class SvOverlayView extends View {
 
         mPaint.setColor(Color.WHITE);
         canvas.drawCircle(x, y, radius - density, mPaint);
-
-        if (mListener != null) {
-            mListener.onSvChanged(mSaturation, mValue, mFromUser);
-        }
     }
 
     @Override
@@ -107,5 +114,7 @@ public class SvOverlayView extends View {
 
     public interface SvValueListener {
         void onSvChanged(float s, float v, boolean fromUser);
+        void onStartTrackingTouch();
+        void onStopTrackingTouch();
     }
 }
