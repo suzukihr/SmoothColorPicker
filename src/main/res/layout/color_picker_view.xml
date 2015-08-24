@@ -16,7 +16,7 @@
         />
 
     <FrameLayout
-        android:id="@+id/frameLayout_sv_view"
+        android:id="@+id/frameLayoutSvView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"

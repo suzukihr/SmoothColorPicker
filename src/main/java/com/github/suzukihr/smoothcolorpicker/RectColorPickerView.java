@@ -22,8 +22,9 @@ public class RectColorPickerView extends LinearLayout {
         setOrientation(HORIZONTAL);
 
         mSvView = (SvView) findViewById(R.id.svView);
-
         mRectHueOverlayView = (RectHueOverlayView) findViewById(R.id.rectHueOverlayView);
+        mSvOverlayView = (SvOverlayView) findViewById(R.id.svOverlayView);
+
         mRectHueOverlayView.setListener(new HueValueListener() {
             @Override
             public void onHueChanged(float hue, boolean fromUser) {
@@ -34,7 +35,6 @@ public class RectColorPickerView extends LinearLayout {
             }
         });
 
-        mSvOverlayView = (SvOverlayView) findViewById(R.id.svOverlayView);
         mSvOverlayView.setListener(new SvOverlayView.SvValueListener() {
             @Override
             public void onSvChanged(float s, float v, boolean fromUser) {

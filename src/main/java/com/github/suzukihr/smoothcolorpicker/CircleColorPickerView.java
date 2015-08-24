@@ -7,10 +7,13 @@ import android.widget.FrameLayout;
 
 public class CircleColorPickerView extends FrameLayout {
 
+    private FrameLayout mFrameLayoutSvView;
     private SvView mSvView;
     private SvOverlayView mSvOverlayView;
     private CircleHueOverlayView mCircleHueOverlayView;
     private ColorPickerListener mListener;
+
+    private boolean mResizeFinished = false;
 
     public CircleColorPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -20,9 +23,11 @@ public class CircleColorPickerView extends FrameLayout {
     private void init() {
         inflate(getContext(), R.layout.color_picker_view, this);
 
+        mFrameLayoutSvView = (FrameLayout) findViewById(R.id.frameLayoutSvView);
         mSvView = (SvView) findViewById(R.id.svView);
-
         mCircleHueOverlayView = (CircleHueOverlayView) findViewById(R.id.hueOverlayView);
+        mSvOverlayView = (SvOverlayView) findViewById(R.id.svOverlayView);
+
         mCircleHueOverlayView.setListener(new HueValueListener() {
             @Override
             public void onHueChanged(float hue, boolean fromUser) {
@@ -33,7 +38,6 @@ public class CircleColorPickerView extends FrameLayout {
             }
         });
 
-        mSvOverlayView = (SvOverlayView) findViewById(R.id.svOverlayView);
         mSvOverlayView.setListener(new SvOverlayView.SvValueListener() {
             @Override
             public void onSvChanged(float s, float v, boolean fromUser) {
@@ -45,11 +49,19 @@ public class CircleColorPickerView extends FrameLayout {
     }
 
     @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (!mResizeFinished) {
+            mFrameLayoutSvView.requestLayout();
+            mResizeFinished = true;
+        }
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         float density = getResources().getDisplayMetrics().density;
-        FrameLayout svView = (FrameLayout) findViewById(R.id.frameLayout_sv_view);
         double radian = 45 * Math.PI / 180;
 
         float strokeWidth = Math.min(getWidth(), getHeight()) / 8f;
@@ -57,9 +69,9 @@ public class CircleColorPickerView extends FrameLayout {
         circleHueView.setStrokeWidth(strokeWidth);
         mCircleHueOverlayView.setStrokeWidth(strokeWidth);
 
-        svView.getLayoutParams().width = (int)
+        mFrameLayoutSvView.getLayoutParams().width = (int)
                 ((getWidth() / 2 - (strokeWidth - 4 * density)) * Math.cos(radian) * 2);
-        svView.getLayoutParams().height = (int)
+        mFrameLayoutSvView.getLayoutParams().height = (int)
                 ((getHeight() / 2 - (strokeWidth - 4 * density)) * Math.cos(radian) * 2);
     }
 
