@@ -73,6 +73,16 @@ public class CircleColorPickerView extends FrameLayout {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        float strokeWidth = Math.min(getWidth(), getHeight()) / 8f;
+        CircleHueView circleHueView = (CircleHueView) findViewById(R.id.circleHueView);
+        circleHueView.setStrokeWidth(strokeWidth);
+        mCircleHueOverlayView.setStrokeWidth(strokeWidth);
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         mListener = null;
