@@ -7,13 +7,10 @@ import android.widget.FrameLayout;
 
 public class CircleColorPickerView extends FrameLayout {
 
-    private FrameLayout mFrameLayoutSvView;
     private SvView mSvView;
     private SvOverlayView mSvOverlayView;
     private CircleHueOverlayView mCircleHueOverlayView;
     private ColorPickerListener mListener;
-
-    private boolean mResizeFinished = false;
 
     public CircleColorPickerView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -23,7 +20,6 @@ public class CircleColorPickerView extends FrameLayout {
     private void init() {
         inflate(getContext(), R.layout.color_picker_view, this);
 
-        mFrameLayoutSvView = (FrameLayout) findViewById(R.id.frameLayoutSvView);
         mSvView = (SvView) findViewById(R.id.svView);
         mCircleHueOverlayView = (CircleHueOverlayView) findViewById(R.id.hueOverlayView);
         mSvOverlayView = (SvOverlayView) findViewById(R.id.svOverlayView);
@@ -74,33 +70,6 @@ public class CircleColorPickerView extends FrameLayout {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        if (!mResizeFinished) {
-            mFrameLayoutSvView.requestLayout();
-            mResizeFinished = true;
-        }
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        float density = getResources().getDisplayMetrics().density;
-        double radian = 45 * Math.PI / 180;
-
-        float strokeWidth = Math.min(getWidth(), getHeight()) / 8f;
-        CircleHueView circleHueView = (CircleHueView) findViewById(R.id.circleHueView);
-        circleHueView.setStrokeWidth(strokeWidth);
-        mCircleHueOverlayView.setStrokeWidth(strokeWidth);
-
-        mFrameLayoutSvView.getLayoutParams().width = (int)
-                ((getWidth() / 2 - (strokeWidth - 4 * density)) * Math.cos(radian) * 2);
-        mFrameLayoutSvView.getLayoutParams().height = (int)
-                ((getHeight() / 2 - (strokeWidth - 4 * density)) * Math.cos(radian) * 2);
     }
 
     @Override
